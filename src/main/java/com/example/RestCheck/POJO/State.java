@@ -1,5 +1,7 @@
 package com.example.RestCheck.POJO;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-
 public class State {
 
 	@Id
@@ -29,8 +30,10 @@ public class State {
 	@Column(name = "Total")
 	private Total total;
 
+	
+	@OneToMany(targetEntity = Delta.class, mappedBy = "State", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@Column(name = "Delta")
-	private Delta delta;
+	private List<Delta> delta;
 
 	public Districts getDistricts() {
 		return districts;
@@ -40,12 +43,22 @@ public class State {
 		this.districts = districts;
 	}
 
-	@OneToMany(targetEntity = Delta.class, mappedBy = "State", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	public Delta getDelta() {
+	
+
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public List<Delta> getDelta() {
 		return delta;
 	}
 
-	public void setDelta(Delta delta) {
+	public void setDelta(List<Delta> delta) {
 		this.delta = delta;
 	}
 
